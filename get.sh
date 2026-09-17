@@ -26,8 +26,7 @@ while IFS=$'\t' read -r major minor source target digest; do
         *'/../'*|*'/./'*|*'//'*) echo '无效目标路径' >&2; exit 1 ;;
     esac
     count=$((count + 1))
-    echo "下载：$target"
-    fetch "$base/$source" "$tmp/$count"
+    curl --fail --location --progress-bar --show-error --retry 3 --connect-timeout 20 "$base/$source" -o "$tmp/$count"
     actual=$(sha256sum "$tmp/$count")
     [[ ${actual%% *} == "$digest" ]] || { echo "校验失败：$target" >&2; exit 1; }
     printf '%s\t%s\n' "$count" "$target" >> "$tmp/selected.tsv"
@@ -41,4 +40,3 @@ while IFS=$'\t' read -r number target; do
     mkdir -p -- "$(dirname -- "$output")"
     mv -f -- "$tmp/$number" "$output"
 done < "$tmp/selected.tsv"
-echo "完成：$count 个文件 → $dest"
