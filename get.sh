@@ -29,6 +29,7 @@ while IFS=$'\t' read -r major minor source target digest; do
     curl --fail --location --progress-bar --show-error --retry 3 --connect-timeout 20 "$base/$source" -o "$tmp/$count"
     actual=$(sha256sum "$tmp/$count")
     [[ ${actual%% *} == "$digest" ]] || { echo "校验失败：$target" >&2; exit 1; }
+    printf '%s\n' "${target##*/}"
     printf '%s\t%s\n' "$count" "$target" >> "$tmp/selected.tsv"
 done < "$tmp/index.tsv"
 if [[ $count -eq 0 ]]; then
