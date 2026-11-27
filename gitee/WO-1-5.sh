@@ -25,7 +25,7 @@ fetch_file() {
     fi
 }
 cat > "$tmp/index.tsv" <<'WPS_FILES'
-WO-1-5	-	WO/1-5%20WPS%E5%88%B6%E4%BD%9C%E8%A1%A8%E6%A0%BC/%E8%AF%BE%E7%A8%8B%E8%A1%A8.docx	课程表.docx	24a8dddd423b84279aea81c0187ed45febb9191ba059d9a2aa88568e645d2055
+WO-1-5	-	WO/1-5%20WPS%E5%88%B6%E4%BD%9C%E8%A1%A8%E6%A0%BC/%E8%AF%BE%E7%A8%8B%E8%A1%A8.docx	课程表.docx	8884c47fe8158e19a5dc1708d7ef49b4b5d07208f781fbe1ed8292c2fb154545
 WPS_FILES
 count=0
 while IFS=$'\t' read -r major minor source target digest; do
